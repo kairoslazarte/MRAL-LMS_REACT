@@ -62,13 +62,15 @@ const ViewAllClasses = () => {
             selector: row => row.levels.map(
             (level) => 
                 (
-                    <button 
-                        key={level.levelID}
-                        className="text-blue-700 transition duration-200 hover:text-red-700 pr-2 cursor-pointer hover:underline font-medium hover:font-bold"
-                        onClick={() => setLevelDetails(level)}
-                    >
-                        {level.level},
-                    </button> 
+                    <div className='flex flex-col'>
+                        <button 
+                            key={level.levelID}
+                            className="text-blue-700 transition duration-200 hover:text-red-700 cursor-pointer hover:underline font-medium hover:font-bold"
+                            onClick={() => setLevelDetails(level)}
+                        >
+                            {level.level}
+                        </button> 
+                    </div>
                 )
             ),
         },
