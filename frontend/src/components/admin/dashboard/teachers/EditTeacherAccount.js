@@ -71,7 +71,7 @@ const EditTeacherAccount = ({ teacherDetails }) => {
     return (
         <div className="w-full h-full xl:px-8 px-4 mx-auto py-20">
             <div className="flex flex-col space-y-8">
-                <h1 className="font-bold text-4xl">Create account for a Teacher</h1>
+                <h1 className="font-bold text-4xl">Update/Edit teacher account</h1>
 
                 <div className="border-2 border-gray-300 rounded-md p-8 h-full">
                     <form onSubmit={updateTeacherAcc} className='flex flex-col space-y-6 divide-y'>
