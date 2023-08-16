@@ -87,7 +87,7 @@ const EditTeacherAccount = ({ teacherDetails }) => {
                                                 Set profile photo
                                                 <img 
                                                     className='h-24 w-24 rounded-full object-cover mt-3'
-                                                    src={`${!image ? teacherDetails?.image : image}`.replace("frontend\\public\\", "")}
+                                                    src={!image ? teacherDetails?.image : image}
                                                 />
                                                 <input type="file" onChange={uploadFileHandler} className="opacity-0 w-0 h-0" />
                                             </label>

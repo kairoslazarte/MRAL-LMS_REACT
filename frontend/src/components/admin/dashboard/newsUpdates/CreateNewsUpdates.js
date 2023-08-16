@@ -115,7 +115,7 @@ function CreateNewsUpdates() {
                                     ) : (
                                         <img 
                                             className='object-cover h-[400px]'
-                                            src={image.replace("frontend\\public\\", "")}
+                                            src={image}
                                         />
                                     )}
                             </div>

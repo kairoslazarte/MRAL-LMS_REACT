@@ -56,7 +56,7 @@ const NewsUpdatesAdminLists = () => {
                                         <div className="h-[200px] object-cover bg-orange-50 rounded-md">
                                             <img 
                                                 className='object-cover h-[200px] mx-auto'
-                                                src={item?.image?.replace("frontend\\public\\", "")}
+                                                src={item?.image}
                                             />
                                         </div>
                                     )}

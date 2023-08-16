@@ -145,7 +145,7 @@ const CreateStudentAccount = () => {
                                                     ) : (
                                                         <img 
                                                             className='h-24 w-24 rounded-full object-cover'
-                                                            src={image.replace("frontend\\public\\", "")}
+                                                            src={image}
                                                         />
                                                     )}
                                                 </div>

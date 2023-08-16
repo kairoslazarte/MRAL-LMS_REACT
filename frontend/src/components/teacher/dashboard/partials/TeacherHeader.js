@@ -13,7 +13,7 @@ const TeacherHeader = ({ teacherDetails }) => {
                     <div className="relative">
                         <img 
                             className='h-10 w-10 rounded-full object-cover cursor-pointer'
-                            src={teacherDetails?.image.replace("frontend\\public\\", "")}
+                            src={teacherDetails?.image}
                             onClick={() => setOpenUserDropdown((open) => !open)}
                         />
                         {openUserDropdown && (

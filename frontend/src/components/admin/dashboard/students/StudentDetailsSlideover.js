@@ -59,7 +59,7 @@ const StudentDetailsSlideover = ({ open, setOpen, studentDetails }) => {
                                                 <div>
                                                     <img 
                                                         className='h-24 w-24 rounded-full object-cover'
-                                                        src={studentDetails?.image.replace("frontend\\public\\", "")}
+                                                        src={studentDetails?.image}
                                                     />
                                                 </div>
                                                 <div className='flex flex-col space-y-2'>

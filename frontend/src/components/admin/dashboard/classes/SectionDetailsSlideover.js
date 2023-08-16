@@ -163,7 +163,7 @@ const SectionDetailsSlideover = ({ open, setOpen, sectionDetails }) => {
                                                                             src={
                                                                                 student.image 
                                                                                 ? 
-                                                                                student.image.replace("frontend\\public\\", "") 
+                                                                                student.image
                                                                                 : 
                                                                                 "/static/images/default_user.png"
                                                                             }

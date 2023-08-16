@@ -58,7 +58,7 @@ const ViewAllTeachers = () => {
                 ? (
                     <img
                         className="h-24 w-24 rounded-full object-cover"
-                        src={row?.image?.replace("frontend\\public\\", "")}
+                        src={row?.image}
                     />
                 ) : (
                     <img

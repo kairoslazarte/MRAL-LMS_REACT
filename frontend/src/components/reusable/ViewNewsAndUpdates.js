@@ -55,7 +55,7 @@ const ViewNewsAndUpdates = () => {
                                 <div className="h-[600px] bg-orange-50 rounded-md">
                                     <img 
                                         className='object-cover h-full mx-auto'
-                                        src={newsUpdate?.image?.replace("frontend\\public\\", "")}
+                                        src={newsUpdate?.image}
                                     />
                                 </div>
                             )}
