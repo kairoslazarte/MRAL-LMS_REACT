@@ -27,7 +27,7 @@ const TeacherLogin = () => {
                         <img
                             className="mx-auto h-20 w-auto"
                             src="/static/images/mral-logo-sm.png"
-                            alt="DHM logo small"
+                            alt="MRAL logo small"
                         />
                     </a>
                     <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">

@@ -41,7 +41,7 @@ const StudentSidebar= ({ studentDetails }) => {
                         <img
                             className="h-20 w-auto"
                             src="/static/images/mral-logo-sm.png"
-                            alt="DHM logo small"
+                            alt="MRAL logo small"
                         />
                     </div>
 
