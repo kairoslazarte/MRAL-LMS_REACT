@@ -62,14 +62,14 @@ const StudentClassesLists= ({ studentDetails }) => {
                             {section?.files ? (
                                 <div className="grid grid-cols-4 gap-4">
                                     {section?.files?.map((file) => (
-                                        <a
+                                         <a
                                             key={file?._id}
                                             className="border-2 border-[#e42222] hover:bg-[#e42222] px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
-                                            href={file?.name?.replace("frontend\\public\\", "")} 
+                                            href={file?.name} 
                                             download
                                         >   <div className="flex flex-col justify-center h-full">
-                                                <span className="text-[#e42222] group-hover:text-white font-medium">
-                                                    {file?.name?.replace("frontend\\public\\static\\sectionUploads\\", "")}
+                                                <span className="text-[#e42222] group-hover:text-white font-medium break-words">
+                                                    {file?.name?.replace("/uploads/sectionUploads/", "")}
                                                 </span>
                                                 <span className="text-blue-500 text-sm italic group-hover:underline pt-2">Click to download</span>
                                             </div>

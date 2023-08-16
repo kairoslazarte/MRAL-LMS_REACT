@@ -28,11 +28,11 @@ const ViewStudentNewslettersMemos = () => {
                                 <>
                                     <a
                                         className="border-2 border-[#e42222] hover:bg-[#e42222] px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
-                                        href={newsletterMemo?.file?.replace("frontend\\public\\", "")} 
+                                        href={newsletterMemo?.file} 
                                         download
                                     >   <div className="flex flex-col justify-center h-full">
                                             <span className="text-[#e42222] group-hover:text-white font-medium break-words">
-                                                {newsletterMemo?.file?.replace("frontend\\public\\static\\newsletterUploads\\", "")}
+                                                {newsletterMemo?.file?.replace("/uploads/newsletterUploads/", "")}
                                             </span>
                                             <span className="text-blue-500 text-sm italic group-hover:underline pt-2 group-hover:text-white">Click to download</span>
                                         </div>

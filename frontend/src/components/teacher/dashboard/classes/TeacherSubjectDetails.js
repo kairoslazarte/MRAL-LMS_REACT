@@ -144,11 +144,11 @@ const TeacherSubjectDetails = ({ setOpenSubjectDetails, subjectDetails }) => {
                         <a
                             key={subjectFile?._id}
                             className="bg-white px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200"
-                            href={subjectFile?.file?.replace("frontend\\public\\", "")} 
+                            href={subjectFile?.file} 
                             download
                         >   <div className="flex flex-col justify-center h-full">
                                 <span className="text-gray-800 font-medium">
-                                    {subjectFile?.file?.replace("frontend\\public\\static\\subjectUploads\\", "")}
+                                    {subjectFile?.file?.replace("/uploads/subjectUploads/", "")}
                                 </span>
                                 <span className="text-blue-500 text-sm italic group-hover:underline pt-4">Click to download</span>
                             </div>

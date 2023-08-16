@@ -100,11 +100,11 @@ const TeacherAdvisoryClassDetails = ({ sectionID, setOpenSectionDetails }) => {
                                 <a
                                     key={file?._id}
                                     className="bg-white px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200"
-                                    href={file?.name?.replace("frontend\\public\\", "")} 
+                                    href={file?.name} 
                                     download
                                 >   <div className="flex flex-col justify-center h-full">
                                         <span className="text-gray-800 font-medium">
-                                            {file?.name?.replace("frontend\\public\\static\\sectionUploads\\", "")}
+                                            {file?.name?.replace("/uploads/sectionUploads/", "")}
                                         </span>
                                         <span className="text-blue-500 text-sm italic group-hover:underline pt-4">Click to download</span>
                                     </div>

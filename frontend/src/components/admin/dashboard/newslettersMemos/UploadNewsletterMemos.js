@@ -171,11 +171,11 @@ const UploadNewslettersMemos = () => {
                                     </button>
                                     <a 
                                         className="flex flex-col justify-center h-full pt-5"
-                                        href={newsletterMemo?.file?.replace("frontend\\public\\", "")} 
+                                        href={newsletterMemo?.file} 
                                         download
                                     >
                                         <span className="text-[#e42222] group-hover:text-white font-medium break-words">
-                                            {newsletterMemo?.file?.replace("frontend\\public\\static\\newsletterUploads\\", "")}
+                                            {newsletterMemo?.file?.replace("/uploads/newsletterUploads/", "")}
                                         </span>
                                         <span className="text-blue-500 text-sm italic group-hover:underline pt-2 group-hover:text-white">Click to download</span>
                                     </a>
