@@ -85,7 +85,7 @@ const StudentSidebar= ({ studentDetails }) => {
                         </nav>
 
                         <div className="mt-auto pb-4 px-4">
-                            <span className="text-blue-700 text-xs italic">Copyright © 2023 all rights reserved - Discovery House Montessori of Quezon City</span>
+                            <span className="text-blue-700 text-xs italic">Copyright © 2023 all rights reserved - Mt. Rushmore Academy of Laguna</span>
                         </div>
                     </div>
                 </div>
