@@ -3,6 +3,7 @@ import axios from 'axios';
 import DataTable, { defaultThemes } from 'react-data-table-component'
 import 'react-data-grid/lib/styles.css';
 import ViewLevel from './ViewLevel';
+import { Helmet } from "react-helmet";
 
 const customStyles = {
     header: {
@@ -62,10 +63,10 @@ const ViewAllClasses = () => {
             selector: row => row.levels.map(
             (level) => 
                 (
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col w-full'>
                         <button 
                             key={level.levelID}
-                            className="text-blue-700 transition duration-200 hover:text-red-700 cursor-pointer hover:underline font-medium hover:font-bold"
+                            className="text-left text-blue-700 transition duration-200 hover:text-red-700 cursor-pointer hover:underline font-medium hover:font-bold"
                             onClick={() => setLevelDetails(level)}
                         >
                             {level.level}
@@ -118,6 +119,19 @@ const ViewAllClasses = () => {
                             </div>
                         </div>
                         <div className='pt-6'>
+                            <Helmet>
+                                <style type="text/css">
+                                    {`
+                                        .rdt_TableCell {
+                                            width: 100%;
+                                        }
+
+                                        .rdt_TableCell div {
+                                            width: 100%;
+                                        }
+                                    `}
+                                </style>
+                            </Helmet>
                             {data && 
                                 (
                                     <DataTable 
