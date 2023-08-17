@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    const conn = await mongoose.connect('mongodb://kairoslazarte:YsAC4JLfLaph2lRj@cluster0-shard-00-00.52tdf.mongodb.net:27017,cluster0-shard-00-01.52tdf.mongodb.net:27017,cluster0-shard-00-02.52tdf.mongodb.net:27017/MRAL-LMS?ssl=true&replicaSet=atlas-m5vxc8-shard-0&authSource=admin&retryWrites=true&w=majority', {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,
