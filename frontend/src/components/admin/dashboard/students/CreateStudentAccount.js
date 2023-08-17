@@ -270,7 +270,14 @@ const CreateStudentAccount = () => {
                                             ))}
                                         </select>
                                         {step == 1 && (
-                                            <div className="flex justify-center">
+                                            <div className="flex justify-center space-x-3">
+                                                <button 
+                                                    type="button" 
+                                                    onClick={() => setStep(0)}
+                                                    className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                                >
+                                                    Back
+                                                </button>
                                                 <button 
                                                     type="button" 
                                                     onClick={() => setStep(2)}
@@ -287,24 +294,40 @@ const CreateStudentAccount = () => {
                                         <label htmlFor="sectionID" className="text-center font-medium text-xl">
                                             Student section
                                         </label>
-                                        <select 
-                                            required
-                                            id="sectionID" 
-                                            name="sectionID"
-                                            className={`relative block w-full appearance-none rounded-md border pl-2 pr-8 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-700 focus:outline-none focus:ring-greenborder-green-700 sm:text-sm border-gray-300`}
-                                        >
-                                            {sections?.map((section) => (
-                                                <option value={section?._id} key={section?._id}>{section?.section}</option>
-                                            ))}
-                                        </select>
-                                        {step == 2 && (
-                                            <div className="flex justify-center">
-                                                <button 
-                                                    type="submit" 
-                                                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        {sections?.length != 0 ? (
+                                            <select 
+                                                required
+                                                id="sectionID" 
+                                                name="sectionID"
+                                                className={`relative block w-full appearance-none rounded-md border pl-2 pr-8 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-700 focus:outline-none focus:ring-greenborder-green-700 sm:text-sm border-gray-300`}
                                                 >
-                                                    Create new Student
+                                                {sections?.map((section) => (
+                                                    <option value={section?._id} key={section?._id}>{section?.section}</option>
+                                                ))}
+                                            </select>
+                                        ) : (
+                                            <div>
+                                                <p className="text-gray-800 font-medium text-sm">No section yet for this level, please create atleast one section first to continue.</p>
+                                            </div>
+                                        )}
+                                       
+                                        {step == 2 && (
+                                           <div className="flex justify-center space-x-3">
+                                                <button 
+                                                    type="button" 
+                                                    onClick={() => setStep(1)}
+                                                    className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                                >
+                                                    Back
                                                 </button>
+                                                {sections?.length != 0 && (
+                                                    <button 
+                                                        type="submit" 
+                                                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                    >
+                                                        Create new Student
+                                                    </button>
+                                                )}
                                             </div>
                                         )}
                                     </div>
