@@ -20,17 +20,17 @@ const StudentLogin = () => {
     }
 
     return (
-        <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="w-full max-w-md">
+        <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#1D5D9B]">
+            <div className="w-full max-w-md shadow-md rounded-md p-8 bg-[#FBEEAC]">
                 <div>
-                    <a href="/student">
+                    <a href="/admin">
                         <img
-                            className="mx-auto h-20 w-auto"
+                            className="mx-auto h-20 w-auto animate-pulse"
                             src="/static/images/mral-logo-sm.png"
                             alt="MRAL logo small"
                         />
                     </a>
-                    <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+                    <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 animate-bounce">
                         Sign in as Student
                     </h2>
                 </div>
