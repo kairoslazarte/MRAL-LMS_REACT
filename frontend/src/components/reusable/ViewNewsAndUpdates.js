@@ -24,7 +24,7 @@ const ViewNewsAndUpdates = () => {
         newsUpdates ? (
             <div>
                 <div className="rounded-lg border-dashed border-2 border-orange-600 bg-blue-50 animate-bounce w-full py-7">
-                    <h1 className="text-center font-bold text-5xl uppercase w-full">
+                    <h1 className="text-center font-bold text-xl sm:text-3xl lg:text-4xl xl:text-5xl uppercase w-full">
                         <span className="text-green-700">N</span>
                         <span className="text-red-700">E</span>
                         <span className="text-blue-700">W</span>
@@ -50,11 +50,11 @@ const ViewNewsAndUpdates = () => {
             
                 <div className="my-auto h-full py-10 flex flex-col space-y-8">
                     {newsUpdates?.map((newsUpdate) => (
-                        <div key={newsUpdate?._id} className="flex flex-col px-8 py-10 bg-white shadow-lg rounded-xl">
+                        <div key={newsUpdate?._id} className="flex flex-col px-4 xl:px-8 py-6 xl:py-10 bg-white shadow-lg rounded-xl">
                             {newsUpdate?.image && (
-                                <div className="h-[600px] bg-orange-50 rounded-md">
+                                <div className="md:h-[600px] bg-orange-50 rounded-md">
                                     <img 
-                                        className='object-cover h-full mx-auto'
+                                        className='object-contain md:object-cover md:h-full mx-auto'
                                         src={newsUpdate?.image}
                                     />
                                 </div>
@@ -72,11 +72,12 @@ const ViewNewsAndUpdates = () => {
                                             font-size: 1.875rem;
                                             line-height: 2.25rem;
                                         }
+
                                     `}
                                 </style>
                             </Helmet>
                             {newsUpdate?.text && (
-                                <div className={`text-xl ${newsUpdate?.image && 'pt-8'}`} dangerouslySetInnerHTML={{ __html: newsUpdate?.text }} />
+                                <div id="news-updates-content" className={`text-xl break-words ${newsUpdate?.image && 'pt-8'}`} dangerouslySetInnerHTML={{ __html: newsUpdate?.text }} />
                             )}
                         </div>
                     ))}

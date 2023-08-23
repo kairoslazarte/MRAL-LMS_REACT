@@ -54,17 +54,17 @@ const StudentClassesLists= ({ studentDetails }) => {
             {subjects ? (
                 !openSubjectDetails ? (
                     <div className="flex flex-col">
-                        <h1 className="font-bold text-gray-900 text-4xl uppercase">{studentDetails?.level} - {studentDetails?.section}</h1>
-                        <h3 className="font-medium text-gray-900 text-2xl pt-3">Adviser: <span className="font-bold">{adviser?.first_name} {adviser?.last_name}</span></h3>
+                        <h1 className="font-bold text-gray-900 text-2xl sm:text-4xl uppercase">{studentDetails?.level} - {studentDetails?.section}</h1>
+                        <h3 className="font-medium text-gray-900 text-lg sm:text-2xl pt-3">Adviser: <span className="font-bold">{adviser?.first_name} {adviser?.last_name}</span></h3>
                         
-                        <div className="pt-10 flex flex-col space-y-6">
-                            <h2 className="text-xl font-medium tracking-wide">Weekly lesson guides: </h2>
+                        <div className="pt-5 sm:pt-10 flex flex-col space-y-6">
+                            <h2 className="sm:text-xl font-medium tracking-wide">Weekly lesson guides: </h2>
                             {section?.files ? (
-                                <div className="grid grid-cols-4 gap-4">
+                                <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center 2xl:justify-start">
                                     {section?.files?.map((file) => (
-                                         <a
+                                        <a
                                             key={file?._id}
-                                            className="border-2 border-[#e42222] hover:bg-[#e42222] px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
+                                            className="sm:ml-4 mt-4 sm:w-[300px] border-2 border-[#e42222] hover:bg-[#e42222] px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
                                             href={file?.name} 
                                             download
                                         >   <div className="flex flex-col justify-center h-full">
@@ -77,17 +77,17 @@ const StudentClassesLists= ({ studentDetails }) => {
                                     ))}
                                 </div>
                             ) : (
-                                <span>No files uploaded yet for this section..</span>
+                                <span className="text-sm sm:text-base">No files uploaded yet for this section..</span>
                             )}
                         </div>
 
                         <div className="pt-10 flex flex-col space-y-6">
-                            <h2 className="text-xl font-medium tracking-wide">Subjects: </h2>
-                            <div className="grid grid-cols-3 gap-6">
+                            <h2 className="sm:text-xl font-medium tracking-wide">Subjects: </h2>
+                            <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center 2xl:justify-start">
                                 {subjects?.map((subject) => (
                                     <div
                                         key={subject?._id} 
-                                        className="bg-white shadow-lg p-6 rounded-md flex flex-col space-y-6 hover:scale-105 transition duration-200 cursor-pointer border-2 border-yellow-400 hover:bg-yellow-400 group"
+                                        className="sm:ml-4 mt-4 sm:w-[300px] bg-white shadow-lg p-6 rounded-md flex flex-col space-y-6 hover:scale-105 transition duration-200 cursor-pointer border-2 border-[#7EAA92] hover:bg-[#7EAA92] group"
                                         onClick={() =>
                                             setOpenSubjectDetails(
                                                 (open) => !open,

@@ -33,11 +33,11 @@ const Student = () => {
                                     <StudentSidebar studentDetails={student} />
                                 </div>
 
-                                <div className="xl:pl-[20rem] h-full w-full">
+                                <div className="lg:pl-[18rem] xl:pl-[20rem] h-full w-full">
                                     <StudentHeader studentDetails={student} />
 
                                     <div className="flex flex-row w-full bg-gray-50 h-full">
-                                        <div className="w-full xl:px-8 px-4 mt-10">
+                                        <div className="w-full 2xl:px-8 px-4 mt-10">
                                             {activeComponent == "Home" && (
                                                 <ViewNewsAndUpdates />
                                             )}

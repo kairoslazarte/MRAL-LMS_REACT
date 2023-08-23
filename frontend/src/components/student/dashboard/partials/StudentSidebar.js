@@ -35,7 +35,7 @@ const StudentSidebar= ({ studentDetails }) => {
 
     return (
         <aside>
-            <div className="hidden xl:flex md:w-[20rem] md:flex-col md:fixed md:inset-y-0 bg-white shadow-lg pt-10 relative">
+            <div className="hidden lg:flex lg:w-[18rem] xl:w-[20rem] lg:flex-col lg:fixed lg:inset-y-0 bg-white shadow-lg pt-10 relative">
                 <div className="flex flex-col flex-1 min-h-0 bg-oa-gray">
                     <div className="flex items-center flex-shrink-0 h-24 px-2 transition duration-200 mx-2 absolute top-0">
                         <img
@@ -55,7 +55,7 @@ const StudentSidebar= ({ studentDetails }) => {
                                             activeComponent
                                             ? "bg-blue-700 text-white ml-2 hover:text-white"
                                             : "text-blue-700 hover:bg-blue-700 hover:text-white mx-2",
-                                        "group flex items-center px-2 py-2 font-medium rounded-md w-full"
+                                            "group flex items-center px-2 py-2 font-medium rounded-md w-full xl:text-base text-sm"
                                     )}
                                     onClick={() =>
                                         setActiveComponent(item.name)

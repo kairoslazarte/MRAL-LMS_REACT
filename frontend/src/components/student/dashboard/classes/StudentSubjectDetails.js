@@ -1,5 +1,4 @@
 const StudentSubjectDetails = ({ subjectDetails, setOpenSubjectDetails, teacher }) => {
-
     return (
         <div>
             <button
@@ -78,11 +77,11 @@ const StudentSubjectDetails = ({ subjectDetails, setOpenSubjectDetails, teacher 
             <div className="pt-10">
                 <h2 className="text-gray-800 font-medium text-2xl">Files</h2>
 
-                <div className="grid grid-cols-4 gap-4 pt-5">
+                <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center 2xl:justify-start pt-5">
                     {subjectDetails?.files?.map((subjectFile) => (
                         <a
                             key={subjectFile?._id}
-                            className="border-2 border-[#e42222] hover:bg-[#e42222] px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
+                            className="sm:ml-4 mt-4 sm:w-[300px] border-2 border-[#e42222] hover:bg-[#e42222] px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
                             href={subjectFile?.file} 
                             download
                         >   <div className="flex flex-col justify-center h-full">

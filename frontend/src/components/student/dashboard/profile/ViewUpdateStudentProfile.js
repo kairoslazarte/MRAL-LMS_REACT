@@ -60,23 +60,30 @@ const ViewUpdateStudentProfile = ({ studentDetails }) => {
     }
 
     return (
-        <div className="bg-white rounded-lg px-8 py-10 shadow-lg">
-            <form onSubmit={updateStudentAcc} className="flex flex-col space-y-6 divide-y">
+        <div className="bg-white rounded-lg px-4 py-6 xl:px-8 xl:py-10 shadow-lg">
+            <form onSubmit={updateStudentAcc} className="flex flex-col space-y-6 sm:divide-y">
                 {/* Student's Information */}
-                <div className="flex flex-row w-full">
-                    <div className="w-[30%] border-r">
+                <div className="flex flex-col sm:flex-row w-full">
+                    <div className="sm:w-[30%] sm:border-r">
                         <h2 className="text-xl font-semibold">Student Information</h2>
                     </div>
-                    <div className="w-[70%] pl-6">
+                    <div className="sm:w-[70%] sm:pl-6 sm:pt-0 pt-4">
                         <div className="flex mb-6">
                             <div className="max-w-2xl rounded-lg bg-gray-50">
                                 <div className="m-4 flex flex-row items-center">
-                                    <label className="mb-2 font-semibold flex flex-col items-center cursor-pointer hover:scale-110 transition transform duration-200">
+                                    <label className="mb-2 font-semibold flex flex-col items-center cursor-pointer hover:scale-110 transition transform duration-200 sm:text-base text-sm">
                                         Set/Update profile photo
-                                        <img 
-                                            className='h-24 w-24 rounded-full object-cover mt-3'
-                                            src={!image ? studentDetails?.image : image}
-                                        />
+                                        {studentDetails?.image ? (
+                                            <img 
+                                                className='h-24 w-24 rounded-full object-cover mt-3'
+                                                src={studentDetails?.image}
+                                            />
+                                        ) : (
+                                            <img 
+                                                className='h-24 w-24 rounded-full object-cover mt-3'
+                                                src={!image ? '/static/images/default_user.png' : image}
+                                            />
+                                        )}
                                         <input type="file" onChange={uploadFileHandler} className="opacity-0 w-0 h-0" />
                                     </label>
 
@@ -105,7 +112,7 @@ const ViewUpdateStudentProfile = ({ studentDetails }) => {
                                     <div 
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     >
-                                        {studentDetails?.middle_name}    
+                                        {studentDetails?.middle_name ? studentDetails?.middle_name : "N/A"}    
                                     </div>
                                 </div>  
                             )}
@@ -146,11 +153,11 @@ const ViewUpdateStudentProfile = ({ studentDetails }) => {
                 </div>
 
                 {/* Parent or Guardian Information */}
-                <div className="flex flex-row pt-6 w-full">
-                    <div className="w-[30%] border-r">
+                <div className="flex flex-col sm:flex-row w-full">
+                    <div className="sm:w-[30%] sm:border-r">
                         <h2 className="text-xl font-semibold">Parent or Guardian Information</h2>
                     </div>
-                    <div className="w-[70%] pl-6">
+                    <div className="sm:w-[70%] sm:pl-6 sm:pt-0 pt-4">
                         <div className="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
                                 <h3 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</h3>
@@ -165,7 +172,7 @@ const ViewUpdateStudentProfile = ({ studentDetails }) => {
                                 <div 
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 >
-                                    {studentDetails?.parent_guardian?.middle_name}    
+                                    {studentDetails?.parent_guardian?.middle_name ? studentDetails?.parent_guardian?.middle_name : "N/A"}    
                                 </div>
                             </div>
                             <div>
@@ -178,7 +185,7 @@ const ViewUpdateStudentProfile = ({ studentDetails }) => {
                             </div>
                         
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid sm:grid-cols-2 gap-6">
                             <div>
                                 <h3 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</h3>
                                 <div 
@@ -207,41 +214,40 @@ const ViewUpdateStudentProfile = ({ studentDetails }) => {
                     </div>
                 </div>
 
-
                 {/* Student's Education Information */}
-                <div className="flex flex-row pt-6 w-full">
-                    <div className="w-[30%] border-r">
+                <div className="flex flex-col sm:flex-row w-full sm:pt-0 pt-5">
+                    <div className="sm:w-[30%] sm:border-r">
                         <h2 className="text-xl font-semibold">Student Education <br/>Information</h2>
                     </div>
-                    <div className="w-[70%] pl-6">
+                    <div className="sm:w-[70%] sm:pl-6 sm:pt-0 pt-4">
                         {/* Student Category */}
-                        <div className={`flex flex-col space-y-4 mb-6 w-[40%]`}>
-                            <h3 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Category level</h3>
+                        <div className={`flex flex-col space-y-4 mb-6 sm:w-[40%]`}>
+                            <h3 className="block sm:mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Category level</h3>
                             <div 
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             >
-                                {studentDetails?.category}    
+                                {studentDetails?.category ? studentDetails?.category : "N/A"}    
                             </div>
                         </div>
 
                         {/* Student Level */}
-                        <div className={`flex flex-col space-y-4 mb-6 w-[40%]`}>
-                            <h3 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Level</h3>
+                        <div className={`flex flex-col space-y-4 mb-6 sm:w-[40%]`}>
+                            <h3 className="block sm:mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Level</h3>
                             <div 
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             >
-                                {studentDetails?.level}    
+                                {studentDetails?.level ? studentDetails?.level : "N/A"}    
                             </div>
                         </div>
                         
 
                         {/* Student Section */}
-                        <div className={`flex flex-col space-y-4 mb-6 w-[40%]`}>
-                            <h3 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Section</h3>
+                        <div className={`flex flex-col space-y-4 mb-6 sm:w-[40%]`}>
+                            <h3 className="block sm:mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Section</h3>
                             <div 
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             >
-                                {studentDetails?.section}    
+                                {studentDetails?.section ? studentDetails?.section : "N/A"}    
                             </div>
                         </div>
                     </div>

@@ -19,15 +19,15 @@ const ViewStudentNewslettersMemos = () => {
     }, [setNewslettersMemos])
     return (
         <div>
-            <h1 className="font-bold text-gray-900 text-4xl uppercase">General Newsletters or Memos</h1>
+            <h1 className="font-bold text-gray-900 text-2xl sm:text-4xl uppercase">General Newsletters or Memos</h1>
             <div className="pt-5">
                 {newslettersMemos ? (
-                    <div className="grid grid-cols-3 gap-6 pt-4">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap pt-4 justify-center 2xl:justify-start">
                         {newslettersMemos?.map((newsletterMemo) => (
                             newsletterMemo?.file ? (
                                 <>
                                     <a
-                                        className="border-2 border-[#e42222] hover:bg-[#e42222] px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
+                                        className="sm:ml-4 mt-4 sm:w-[300px] border-2 border-[#e42222] hover:bg-[#e42222] px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
                                         href={newsletterMemo?.file} 
                                         download
                                     >   <div className="flex flex-col justify-center h-full">
@@ -41,7 +41,7 @@ const ViewStudentNewslettersMemos = () => {
                             ) : (
                                 <>
                                     <a
-                                        className="border-2 border-blue-700 hover:bg-blue-700 px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
+                                        className="sm:ml-4 mt-4 sm:w-[300px] border-2 border-blue-700 hover:bg-blue-700 px-4 py-8 shadow-lg rounded-md text-center group hover:scale-105 transition duration-200 group"
                                         href={newsletterMemo?.link} 
                                         target="_blank"
                                         rel="noreferrer"

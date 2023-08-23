@@ -37,7 +37,7 @@ const TeacherLogin = () => {
                 <form className="mt-4 space-y-6" onSubmit={loginHandler}>
                     <div className="flex flex-col space-y-4 rounded-md shadow-sm relative">
                         <p 
-                            className={`text-red-600 text-center absolute left-[50%] transform translate-x-[-50%] ${errorLogin ? 'block' : 'hidden'}`}
+                            className={`w-full text-red-600 text-center absolute left-[50%] transform translate-x-[-50%] ${errorLogin ? 'block' : 'hidden'}`}
                         >
                             Invalid email or password.
                         </p>
