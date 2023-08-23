@@ -93,11 +93,66 @@ const attachFileToSection = asyncHandler(async (req, res) => {
     }
 })
 
+const deleteSubjectFile = asyncHandler(async (req, res) => {
+    const { 
+        id
+    } = req.body
+
+   try {
+        await Subject.updateMany(
+            {},
+            {
+                $pull: {
+                    files: {
+                        _id: {
+                            $in: id,
+                        },
+                    }
+                },
+            }
+        );
+        res.status(204).send("Delete subject file successfully!")
+   } catch(error) {
+        console.log(error)
+        res.status(404)
+        throw new Error("Subject file not found")
+   }
+});
+
+const deleteSectionFile = asyncHandler(async (req, res) => {
+    const { 
+        id
+    } = req.body
+
+   try {
+        await Section.updateMany(
+            {},
+            {
+                $pull: {
+                    files: {
+                        _id: {
+                            $in: id,
+                        },
+                    }
+                },
+            }
+        );
+        res.status(204).send("Delete section file successfully!")
+   } catch(error) {
+        console.log(error)
+        res.status(404)
+        throw new Error("Section file not found")
+   }
+});
+
+
 export {
     authTeacher,
     getTeacherSubjects,
     attachFileToSubject,
     getSubjectDetails,
     getSectionDetails,
-    attachFileToSection
+    attachFileToSection,
+    deleteSubjectFile,
+    deleteSectionFile
 }

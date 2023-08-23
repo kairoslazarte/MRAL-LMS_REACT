@@ -6,7 +6,9 @@ import {
     attachFileToSubject,
     getSubjectDetails,
     getSectionDetails,
-    attachFileToSection
+    attachFileToSection,
+    deleteSubjectFile,
+    deleteSectionFile
 } from '../controllers/teachersController.js'
 
 router.post('/login', authTeacher)
@@ -15,5 +17,7 @@ router.post('/attach-subject-file', attachFileToSubject)
 router.post('/get-subject-details', getSubjectDetails)
 router.post('/get-section-details', getSectionDetails)
 router.post('/attach-section-file', attachFileToSection)
+router.post('/delete-subject-file', deleteSubjectFile)
+router.post('/delete-section-file', deleteSectionFile)
 
 export default router
