@@ -36,7 +36,7 @@ const TeacherSidebar = ({ teacherDetails }) => {
 
     return (
         <aside>
-            <div className="hidden xl:flex md:w-[20rem] md:flex-col md:fixed md:inset-y-0 bg-white shadow-lg pt-10 relative">
+            <div className="hidden lg:flex md:w-[20rem] md:flex-col md:fixed md:inset-y-0 bg-white shadow-lg pt-10 relative">
                 <div className="flex flex-col flex-1 min-h-0 bg-oa-gray">
                     <div className="flex items-center flex-shrink-0 h-24 px-2 transition duration-200 mx-2 absolute top-0">
                         <img

@@ -35,7 +35,7 @@ const Teacher = () => {
                                     <TeacherSidebar teacherDetails={teacher} />
                                 </div>
 
-                                <div className="xl:pl-[20rem] h-full w-full">
+                                <div className="lg:pl-[20rem] h-full w-full">
                                     <TeacherHeader teacherDetails={teacher} />
 
                                     <div className="flex flex-row w-full">
