@@ -35,7 +35,7 @@ const TeacherClassesLists = ({ teacherDetails }) => {
 
     return (
         teacherDetails ? (
-            teacherDetails?.classes ? (
+            teacherDetails?.classes?.length != 0 ? (
                 !openSubjectDetails ? (
                     <div className="grid grid-cols-3 gap-4">
                         {subjects?.map((subject) => (
@@ -44,7 +44,7 @@ const TeacherClassesLists = ({ teacherDetails }) => {
                                     sectionSubject?.subjectID == subject?._id && (
                                         <div 
                                             key={subject?._id}
-                                            className="flex flex-col bg-[#1D5B79] border border-[#1D5B79] rounded-md px-5 py-7 shadow-md cursor-pointer transition duration-200 hover:scale-105 hover:bg-white group"
+                                            className="flex flex-col bg-red-700 border border-red-700 rounded-md px-5 py-7 shadow-md cursor-pointer transition duration-200 hover:scale-105 hover:bg-white group"
                                             onClick={() =>
                                                 setOpenSubjectDetails(
                                                     (open) => !open,
@@ -55,12 +55,12 @@ const TeacherClassesLists = ({ teacherDetails }) => {
                                             {levels?.map((level) => (
                                                 level?.sections?.map((levelSection) => (
                                                     levelSection?.sectionID == section?._id && (
-                                                        <h2 key={levelSection?.sectionID} className="font-bold text-xl text-white group-hover:text-[#1D5B79]">{level?.level} - {levelSection?.section} </h2>
+                                                        <h2 key={levelSection?.sectionID} className="font-bold text-xl text-white group-hover:text-red-700">{level?.level} - {levelSection?.section} </h2>
                                                     )
                                                 ))
                                             ))}
-                                            <h3 className="font-medium text-lg text-white pt-8 group-hover:text-[#1D5B79]">Subject: {subject?.subject}</h3>
-                                            <h3 className="text-md text-white group-hover:text-[#1D5B79]">Students: {section?.students?.length}</h3>
+                                            <h3 className="font-medium text-lg text-white pt-8 group-hover:text-red-700">Subject: {subject?.subject}</h3>
+                                            <h3 className="text-md text-white group-hover:text-red-700">Students: {section?.students?.length}</h3>
                                         </div>
                                     )
                                 ))

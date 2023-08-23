@@ -13,10 +13,10 @@ const TeacherAdvisoryClassesLists = ({ teacherDetails }) => {
                     {teacher?.advisoryClass?.map((advClass) => (
                         <div
                             key={advClass?._id}
-                            className="bg-white shadow-lg p-6 rounded-md flex flex-col space-y-6 hover:scale-105 transition duration-200 cursor-pointer border-2 border-[#7EAA92] hover:bg-[#7EAA92] group"
+                            className="bg-white shadow-lg p-6 rounded-md flex flex-col space-y-6 hover:scale-105 transition duration-200 cursor-pointer border-2 border-red-700 hover:bg-red-700 group"
                             onClick={() => setOpenSectionDetails((open) => !open, setSelectedSection(advClass?.sectionID))}
                         >
-                            <h2 className="font-bold text-[#7EAA92] tracking-wide text-xl group-hover:text-white">{advClass?.section}</h2>
+                            <h2 className="font-bold text-red-700 tracking-wide text-xl group-hover:text-white">{advClass?.section}</h2>
                         </div>
                     ))}
                 </div>
