@@ -392,6 +392,7 @@ const createStudentAccount = asyncHandler(async (req, res) => {
         first_name: first_name,
         middle_name: middle_name,
         last_name: last_name,
+        full_name: first_name + " " + middle_name + " " + last_name,
         email: email,
         address: address,
         password: password,
@@ -441,6 +442,21 @@ const getAllStudents = asyncHandler(async (req, res) => {
     const students = await Student.find();
     res.status(200).json(students);
 });
+
+const searchStudents = asyncHandler(async (req, res) => {
+    const { searchInput } = req.body;
+
+    const keyword = searchInput 
+    ? {
+        full_name:  {
+            $regex: searchInput,
+            $options: 'i',
+        },
+    } : {}
+
+    const students = await Student.find({ ...keyword })
+    res.json(students)
+})
 
 const deleteStudents = asyncHandler(async (req, res) => {
     const { ids } = req.body;
@@ -587,6 +603,7 @@ const updateStudentAccount = asyncHandler(async (req, res) => {
             first_name: first_name,
             middle_name: middle_name,
             last_name: last_name,
+            full_name: first_name + " " + middle_name + " " + last_name,
             email: email,
             address: address,
             image: image,
@@ -1111,6 +1128,7 @@ export {
     getTeacherDetails,
     createStudentAccount,
     getAllStudents,
+    searchStudents,
     deleteStudents,
     deleteSections,
     getSection,

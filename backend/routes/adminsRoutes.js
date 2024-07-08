@@ -19,6 +19,7 @@ import {
     getTeacherDetails,
     createStudentAccount,
     getAllStudents,
+    searchStudents,
     deleteStudents,
     deleteSections,
     getSection,
@@ -60,6 +61,7 @@ router.post('/delete-all-classes', deleteAllClasses)
 router.get('/get-teacher-details', getTeacherDetails)
 router.post('/create-student', createStudentAccount)
 router.get('/get-students', getAllStudents)
+router.post('/search-students',searchStudents)
 router.post('/delete-student', deleteStudents)
 router.post('/delete-sections', deleteSections)
 router.post('/get-section', getSection)

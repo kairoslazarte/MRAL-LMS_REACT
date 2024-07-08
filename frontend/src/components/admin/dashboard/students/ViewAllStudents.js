@@ -46,6 +46,7 @@ const ViewAllStudents = () => {
     const [onClickEditBtn, setOnClickEditBtn] = useState(false)
     const [studentDetails, setStudentDetails] = useState(null)
     const [sortBy, setSortBy] = useState("All")
+    const [searchStudentInput, setSearchStudentInput] = useState(null)
 
     const handleRowSelected = useCallback((state) => {
         setSelectedRows(state.selectedRows);
@@ -156,6 +157,17 @@ const ViewAllStudents = () => {
         }
     };
 
+    const searchStudents = async () => {
+        try {
+            const { data } = await axios.post("/api/admins/search-students", {
+                searchInput: searchStudentInput
+            })
+            setData(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     useEffect(() => {
         getAllStudents();
     }, [setData]);
@@ -176,9 +188,26 @@ const ViewAllStudents = () => {
                 <div className="w-full h-full xl:px-8 px-4 mx-auto py-20">
                     <div className="my-auto h-full">
                         <div className="relative flex flex-row">
-                            <h1 className="font-bold text-4xl">
-                                View all Students:
-                            </h1>
+                            <div className="flex flex-col space-y-4">
+                                 <h1 className="font-bold text-4xl">
+                                     View all Students:
+                                 </h1>
+                                 <div className="flex flex-row space-x-2 items-center">
+                                     <input 
+                                         type="text" 
+                                         className="border border-gray-300 rounded-md text-sm" 
+                                         placeholder="Search student's name.."
+                                         onChange={(e) => setSearchStudentInput(e.target.value)} 
+                                     />
+                                     <button 
+                                         type="button" 
+                                         className="text-sm text-white bg-blue-500 h-full rounded-md px-6 transition duration-200 border border-blue-500 hover:bg-white hover:text-blue-500"
+                                         onClick={searchStudents}
+                                     >
+                                         Search
+                                     </button>
+                                 </div>
+                            </div>
                             <div className="flex justify-end absolute right-0 top-0">
                                 {selectedRows.length > 0 && (
                                     <button
