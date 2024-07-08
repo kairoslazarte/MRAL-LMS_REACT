@@ -739,6 +739,27 @@ const createNewAndUpdates = asyncHandler(async (req, res) => {
     res.status(201).json(createdNewsUpdates);
 });
 
+const editNewsAndUpdates = asyncHandler(async (req, res) => {
+    const {
+        id,
+        image,
+        text
+    } = req.body;
+
+    const newsUpdates = await NewsUpdates.findOneAndUpdate(
+        {
+            '_id': id
+        },
+        {
+            image: image,
+            text: text,
+        }
+    )
+
+    await newsUpdates.save()
+    res.status(200).json(newsUpdates)
+});
+
 const getNewsAndUpdates = asyncHandler(async (req, res) => {
     const newsUpdates = await NewsUpdates.find().sort({ updatedAt: -1 })
 
@@ -1097,6 +1118,7 @@ export {
     removeStudentFromSection,
     removeSubjectFromSection,
     createNewAndUpdates,
+    editNewsAndUpdates,
     getNewsAndUpdates,
     addStudentInSection,
     addSubjectInSection,

@@ -26,6 +26,7 @@ import {
     removeStudentFromSection,
     removeSubjectFromSection,
     createNewAndUpdates,
+    editNewsAndUpdates,
     getNewsAndUpdates,
     addStudentInSection,
     addSubjectInSection,
@@ -65,7 +66,8 @@ router.post('/get-section', getSection)
 router.post('/update-student', updateStudentAccount)
 router.post('/remove-student', removeStudentFromSection)
 router.post('/remove-subject', removeSubjectFromSection)
-router.post('/create-news-updates', createNewAndUpdates)
+router.post('/create-news-updates', createNewAndUpdates) 
+router.post('/edit-news-updates', editNewsAndUpdates)
 router.get('/get-news-updates', getNewsAndUpdates)
 router.post('/add-student-section', addStudentInSection)
 router.post('/add-subject-section', addSubjectInSection)
