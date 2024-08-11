@@ -4,6 +4,8 @@ import Teacher from '../models/teachersModel.js'
 import Subject from '../models/subjectsModel.js';
 import Section from '../models/sectionsModel.js';
 import Level from '../models/levelsModel.js';
+import Student from '../models/studentsModel.js';
+import Conversation from '../models/conversationModel.js';
 
 const authTeacher = asyncHandler(async (req, res) => {
     const { email, password } = req.body
@@ -11,10 +13,11 @@ const authTeacher = asyncHandler(async (req, res) => {
     const teacher = await Teacher.findOne({ email })
 
     if (teacher && (await teacher.matchPassword(password))) {
-        const updatedTeacher = await teacher.save()
+        const updatedTeacher = await teacher.save();
 
-        res.json(updatedTeacher)
-        res.status(200)
+        generateToken(updatedTeacher._id, res)
+        res.json(updatedTeacher);
+        res.status(200);
     }  else {
         res.status(401)
         throw new Error('Invalid email or password')
@@ -145,6 +148,24 @@ const deleteSectionFile = asyncHandler(async (req, res) => {
    }
 });
 
+const getAllStudents = asyncHandler(async (req, res) => {
+    const students = await Student.find().select("-password");
+    res.status(200).json(students);
+});
+
+const getTeacherConversations = asyncHandler(async(req, res) => {
+    const teacherID = req.user._id;
+
+    const conversations = await Conversation.find({
+        participants: { $in: teacherID }
+    });
+    const participants = conversations.map((conversation) => conversation.participants);
+    const students = await Student.find({
+        _id: { $in: participants.flat() }
+    }).select("-password");
+
+    res.status(200).json(students);
+})
 
 export {
     authTeacher,
@@ -154,5 +175,7 @@ export {
     getSectionDetails,
     attachFileToSection,
     deleteSubjectFile,
-    deleteSectionFile
+    deleteSectionFile,
+    getAllStudents,
+    getTeacherConversations
 }

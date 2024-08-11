@@ -7,6 +7,7 @@ import {
     NewspaperIcon,
     XIcon,
     MenuAlt2Icon,
+    ChatIcon
 } from '@heroicons/react/outline'
 import { Disclosure } from '@headlessui/react'
 import { StudentSidebarContexts } from '../../../../contexts/student/StudentSidebarContexts';
@@ -33,6 +34,10 @@ const StudentHeader = ({ studentDetails }) => {
         {
             name: studentDetails?.level + " - " + studentDetails?.section,
             icon: AcademicCapIcon
+        },
+        {
+            name: "Messages",
+            icon: ChatIcon
         },
         {
             name: "General Newsletters / Memos",

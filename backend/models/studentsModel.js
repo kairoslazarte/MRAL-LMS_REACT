@@ -131,7 +131,7 @@ const studentsSchema = mongoose.Schema(
                 timestamps: true,
             }
         ]
-    }
+    }, {timestamps: true}
 )
 
 studentsSchema.methods.matchPassword = async function (enteredPassword) {

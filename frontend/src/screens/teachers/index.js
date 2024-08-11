@@ -1,17 +1,21 @@
 import ViewNewsAndUpdates from "../../components/reusable/ViewNewsAndUpdates"
-import StudentMessages from "../../components/student/dashboard/partials/StudentMessages"
 import TeacherAdvisoryClassesLists from "../../components/teacher/dashboard/advisoryClasses/TeacherAdvisoryClassesLists"
 import TeacherClassesLists from "../../components/teacher/dashboard/classes/TeacherClassesLists"
 import TeacherHeader from "../../components/teacher/dashboard/partials/TeacherHeader"
-import TeacherMessages from "../../components/teacher/dashboard/partials/TeacherMessages"
 import TeacherSidebar from "../../components/teacher/dashboard/partials/TeacherSidebar"
 import ViewUpdateTeacherProfile from "../../components/teacher/dashboard/profile/ViewUpdateTeacherProfile"
 import TeacherLogin from "../../components/teacher/forms/TeacherLogin"
 import { TeacherLoginContext } from "../../contexts/teacher/TeacherLoginContexts"
 import { TeacherSidebarContexts } from "../../contexts/teacher/TeacherSidebarContext"
 import { useMemo, useState } from "react"
+import ArrowBackButton from "../../components/reusable/ArrowBackButton"
+import MessagesContainer from "../../components/common/messages/MessagesContainer"
+import useTeacherGetAllStudents from "../../hooks/teacher/useTeacherGetAllStudents"
+import useListenMessages from "../../hooks/messages/useListenMessages"
 
 const Teacher = () => {
+    const { students } = useTeacherGetAllStudents();
+    useListenMessages({users: students});
     const [teacher, setTeacher] = useState(null)
     const userValue = useMemo(() => ({teacher, setTeacher}), [teacher, setTeacher])
     
@@ -39,24 +43,29 @@ const Teacher = () => {
                                     <TeacherHeader teacherDetails={teacher} />
 
                                     <div className="flex flex-row w-full">
-                                        <div className="w-full xl:px-8 px-4 mt-10">
-                                            {activeComponent == "Home" && (
-                                                <ViewNewsAndUpdates />
-                                            )}
-                                            {activeComponent == `${teacher?.first_name} ${teacher?.last_name}` && (
-                                                <ViewUpdateTeacherProfile teacherDetails={teacher} />
-                                            )}
-                                            {activeComponent == 'Classes' && (
-                                                <TeacherClassesLists teacherDetails={teacher} />
-                                            )}
-                                            {activeComponent == 'Advisory Classes' && (
-                                                <TeacherAdvisoryClassesLists teacherDetails={teacher} />
-                                            )}
-                                        </div>
+                                        <div className="w-full 2xl:px-8 px-4 mt-5">
+                                            {activeComponent === "Messages" ? (
+                                                <ArrowBackButton component={"teacher"} />
+                                            ) : <></>}
 
-                                        {/* <div className="w-[30%] bg-white border-l border-gray-200">
-                                            <TeacherMessages teacherDetails={teacher} />           
-                                        </div> */}
+                                            <div className="mt-5">
+                                                {activeComponent == "Home" && (
+                                                    <ViewNewsAndUpdates />
+                                                )}
+                                                {activeComponent == `${teacher?.first_name} ${teacher?.last_name}` && (
+                                                    <ViewUpdateTeacherProfile teacherDetails={teacher} />
+                                                )}
+                                                {activeComponent == 'Classes' && (
+                                                    <TeacherClassesLists teacherDetails={teacher} />
+                                                )}
+                                                {activeComponent == "Messages" && (
+                                                    <MessagesContainer />
+                                                )}
+                                                {activeComponent == 'Advisory Classes' && (
+                                                    <TeacherAdvisoryClassesLists teacherDetails={teacher} />
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

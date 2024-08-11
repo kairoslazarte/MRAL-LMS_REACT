@@ -4,6 +4,7 @@ import Student from '../models/studentsModel.js'
 import Section from '../models/sectionsModel.js';
 import Subject from '../models/subjectsModel.js';
 import Teacher from '../models/teachersModel.js';
+import Conversation from '../models/conversationModel.js';
 
 const authStudent = asyncHandler(async (req, res) => {
     const { email, password } = req.body
@@ -12,8 +13,8 @@ const authStudent = asyncHandler(async (req, res) => {
 
     if (student && (await student.matchPassword(password))) {
         const updatedStudent = await student.save()
-
-        res.json(updatedStudent)
+        generateToken(updatedStudent._id, res)
+        res.json(updatedStudent);
         res.status(200)
     }  else {
         res.status(401)
@@ -72,6 +73,11 @@ const getTeacherDetails = asyncHandler(async (req, res) => {
 
 })
 
+const getAllTeachers = asyncHandler(async (req, res) => {
+    const teachers = await Teacher.find().select("-password");
+    res.status(200).json(teachers);
+});
+
 const studentSendMessage = asyncHandler(async (req, res) => {
     const { studentID, teacherID, message } = req.body
 
@@ -123,6 +129,20 @@ const studentSendMessage = asyncHandler(async (req, res) => {
     }
 })
 
+const getStudentConversations = asyncHandler(async(req, res) => {
+    const studentID = req.user._id;
+
+    const conversations = await Conversation.find({
+        participants: { $in: studentID }
+    });
+    const participants = conversations.map((conversation) => conversation.participants);
+    const teachers = await Teacher.find({
+        _id: { $in: participants.flat() }
+    }).select("-password");
+
+    res.status(200).json(teachers);
+})
+
 export {
     authStudent,
     getSubjects,
@@ -130,5 +150,7 @@ export {
     getSection,
     getStudentDetails,
     getTeacherDetails,
-    studentSendMessage
+    getAllTeachers,
+    studentSendMessage,
+    getStudentConversations
 }

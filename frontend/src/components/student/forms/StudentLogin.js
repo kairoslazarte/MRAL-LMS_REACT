@@ -1,10 +1,13 @@
 import React, { useState, useContext } from 'react'
 import axios from 'axios'
 import { StudentLoginContext } from '../../../contexts/student/StudentLoginContexts'
+import { useAuthContext } from '../../../contexts/auth/AuthContext';
+import TextField from '@mui/material/TextField';
 
 const StudentLogin = () => {
-    const { student, setStudent } = useContext(StudentLoginContext)
-    const [errorLogin, setErrorLogin] = useState(false)
+    const { student, setStudent } = useContext(StudentLoginContext);
+    const { setAuthUser } = useAuthContext();
+    const [errorLogin, setErrorLogin] = useState(false);
 
     const loginHandler = async (e) => {
         e.preventDefault()
@@ -13,24 +16,34 @@ const StudentLogin = () => {
                 email: e.target.email.value,
                 password: e.target.password.value
             })
-            setStudent(student)
+            
+            if (student) {
+                setStudent(student)
+                setAuthUser(student)
+            }
         } catch (error) {
             setErrorLogin(true)
-        }   
+        }  
     }
 
     return (
-        <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#1D5D9B]">
+        <div className="flex flex-col min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#1D5D9B]">
+            <div>
+               <div className='flex flex-col justify-center pb-10'>
+                    <h2 className='text-gray-900 font-bold text-5xl text-center w-3/4 mx-auto font-serif'>“Train up a child in the way he should go; even when he is old he will not depart from it.“</h2>
+                    <span className='text-center pt-2 text-gray-800 text-2xl italic font-bold font-serif'>Proverbs 22:6</span>
+               </div>
+            </div>
             <div className="w-full max-w-md shadow-md rounded-md p-8 bg-[#FBEEAC]">
                 <div>
                     <a href="/">
                         <img
-                            className="mx-auto h-20 w-auto animate-pulse"
+                            className="mx-auto h-24 w-auto"
                             src="/static/images/mral-logo-sm.png"
                             alt="MRAL logo small"
                         />
                     </a>
-                    <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 animate-bounce">
+                    <h2 className="mt-4 text-center text-3xl font-bold tracking-tight text-gray-900">
                         Sign in as Student
                     </h2>
                 </div>
@@ -42,31 +55,31 @@ const StudentLogin = () => {
                             Invalid email or password.
                         </p>
                         <div className="pt-5">
-                            <label htmlFor="email-address" className="sr-only">
-                                Email address
-                            </label>
-                            <input
-                                id="email-address"
-                                name="email"
-                                type="email"
-                                autoComplete="email"
+                            <TextField
+                                margin="normal"
                                 required
-                                className={`relative block w-full appearance-none rounded-md border px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-700 focus:outline-none focus:ring-greenborder-green-700 sm:text-sm ${errorLogin ? `border-red-600` : `border-gray-300`}`}
-                                placeholder="Email address"
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                onChange={() => setErrorLogin(false)}
+                                className={`border bg-white  ${errorLogin ? `border-red-600 bg-red-50 shake` : `border-gray-300`}`}
+                                autoFocus
                             />
                         </div>
                         <div>
-                            <label htmlFor="password" className="sr-only">
-                                Password
-                            </label>
-                            <input
-                            id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
+                            <TextField
+                                margin="normal"
                                 required
-                                className={`relative block w-full appearance-none rounded-md border px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-green-700 focus:outline-none focus:ring-greenborder-green-700 sm:text-sm ${errorLogin ? `border-red-600` : `border-gray-300`}`}
-                                placeholder="Password"
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                onChange={() => setErrorLogin(false)}
+                                autoComplete="current-password"
+                                className={`border bg-white  ${errorLogin ? `border-red-600 bg-red-50 shake` : `border-gray-300`}`}
                             />
                         </div>
                     </div>

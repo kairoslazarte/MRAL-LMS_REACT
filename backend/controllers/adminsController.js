@@ -9,6 +9,7 @@ import Subject from "../models/subjectsModel.js";
 import Student from "../models/studentsModel.js";
 import NewsUpdates from "../models/newsUpdatesModel.js";
 import NewsletterMemos from "../models/newsletterModel.js";
+import User from "../models/userModel.js";
 
 const authAdmin = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
@@ -24,8 +25,7 @@ const authAdmin = asyncHandler(async (req, res) => {
             middle_name: updatedAdmin.middle_name,
             last_name: updatedAdmin.last_name,
             phone: updatedAdmin.phone,
-            email: updatedAdmin.email,
-            token: generateToken(updatedAdmin._id),
+            email: updatedAdmin.email
         });
         res.status(200);
     } else {
@@ -61,6 +61,7 @@ const createTeacherAccount = asyncHandler(async (req, res) => {
         first_name: first_name,
         middle_name: middle_name,
         last_name: last_name,
+        full_name: !middle_name ? `${first_name} ${last_name}` : `${first_name} ${middle_name} ${last_name}`,
         phone: phone,
         email: email,
         password: password,
@@ -73,12 +74,22 @@ const createTeacherAccount = asyncHandler(async (req, res) => {
     });
 
     const newTeacher = await teacher.save();
+
+    const newUser = new User({
+        _id: newTeacher._id,
+        full_name: !newTeacher.middle_name ? `${newTeacher.first_name} ${newTeacher.last_name}` : `${newTeacher.first_name} ${newTeacher.middle_name} ${newTeacher.last_name}`,
+        email: newTeacher.email,
+        password: newTeacher.password,
+        accountType: "teacher"
+    })
+
+    generateToken(newUser._id, res);
+    await newUser.save();
     res.status(201).json(newTeacher);
 });
 
 const getAllTeachers = asyncHandler(async (req, res) => {
-    const teachers = await Teacher.find();
-
+    const teachers = await Teacher.find().select("-password");
     res.status(200).json(teachers);
 });
 
@@ -269,6 +280,9 @@ const deleteTeachers = asyncHandler(async (req, res) => {
         await Teacher.deleteMany({
             _id: { $in: ids },
         });
+        await User.deleteMany({
+            _id: { $in: ids },
+        })
         res.status(204).send("Delete Teacher/s successfully.");
     } catch (error) {
         console.log(error);
@@ -392,7 +406,7 @@ const createStudentAccount = asyncHandler(async (req, res) => {
         first_name: first_name,
         middle_name: middle_name,
         last_name: last_name,
-        full_name: first_name + " " + middle_name + " " + last_name,
+        full_name: !middle_name ? `${first_name} ${last_name}` : `${first_name} ${middle_name} ${last_name}`,
         email: email,
         address: address,
         password: password,
@@ -434,12 +448,23 @@ const createStudentAccount = asyncHandler(async (req, res) => {
             phone_number: phone,
         },
     });
+
+    const newUser = new User({
+        _id: newStudent._id,
+        full_name: !newStudent.middle_name ? `${newStudent.first_name} ${newStudent.last_name}` : `${newStudent.first_name} ${newStudent.middle_name} ${newStudent.last_name}`,
+        email: newStudent.email,
+        password: newStudent.password,
+        accountType: "student"
+    })
+
+    generateToken(newUser._id, res);
+    await newUser.save();
     await currentSection.save();
     res.status(201).json(newStudent);
 });
 
 const getAllStudents = asyncHandler(async (req, res) => {
-    const students = await Student.find();
+    const students = await Student.find().select("-password");
     res.status(200).json(students);
 });
 
@@ -453,7 +478,7 @@ const searchStudents = asyncHandler(async (req, res) => {
             $options: 'i',
         },
     } : {}
-
+    
     const students = await Student.find({ ...keyword })
     res.json(students)
 })
@@ -475,6 +500,9 @@ const deleteStudents = asyncHandler(async (req, res) => {
                 },
             }
         );
+        await User.deleteMany({
+            _id: { $in: ids },
+        })
         res.status(204).send("Delete Student/s successfully.");
     } catch (error) {
         console.log(error);
@@ -603,7 +631,7 @@ const updateStudentAccount = asyncHandler(async (req, res) => {
             first_name: first_name,
             middle_name: middle_name,
             last_name: last_name,
-            full_name: first_name + " " + middle_name + " " + last_name,
+            full_name: !middle_name ? `${first_name} ${last_name}` : `${first_name} ${middle_name} ${last_name}`,
             email: email,
             address: address,
             image: image,
@@ -762,7 +790,7 @@ const editNewsAndUpdates = asyncHandler(async (req, res) => {
         image,
         text
     } = req.body;
-
+    
     const newsUpdates = await NewsUpdates.findOneAndUpdate(
         {
             '_id': id
@@ -772,10 +800,11 @@ const editNewsAndUpdates = asyncHandler(async (req, res) => {
             text: text,
         }
     )
-
+    
     await newsUpdates.save()
     res.status(200).json(newsUpdates)
 });
+
 
 const getNewsAndUpdates = asyncHandler(async (req, res) => {
     const newsUpdates = await NewsUpdates.find().sort({ updatedAt: -1 })
@@ -1044,6 +1073,7 @@ const updateTeacherAccount = asyncHandler(async (req, res) => {
             first_name: first_name,
             middle_name: middle_name,
             last_name: last_name,
+            full_name: !middle_name ? `${first_name} ${last_name}` : `${first_name} ${middle_name} ${last_name}`,
             email: email,
             address: address,
             image: image,
@@ -1054,8 +1084,19 @@ const updateTeacherAccount = asyncHandler(async (req, res) => {
             zoom_password: zoom_password
         }
     )
+
+    const user = await User.findOneAndUpdate(
+        {
+            '_id': id
+        },
+        {
+            full_name: !middle_name ? `${first_name} ${last_name}` : `${first_name} ${middle_name} ${last_name}`,
+            email: email
+        }
+    )
     
     await teacher.save()
+    await user.save()
     res.status(200).json(teacher)
 });
 

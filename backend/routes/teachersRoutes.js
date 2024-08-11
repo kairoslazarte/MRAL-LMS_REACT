@@ -8,8 +8,11 @@ import {
     getSectionDetails,
     attachFileToSection,
     deleteSubjectFile,
-    deleteSectionFile
+    deleteSectionFile,
+    getAllStudents,
+    getTeacherConversations
 } from '../controllers/teachersController.js'
+import protectRoute from '../middleware/protectRoute.js'
 
 router.post('/login', authTeacher)
 router.post('/get-teacher-subjects', getTeacherSubjects)
@@ -19,5 +22,7 @@ router.post('/get-section-details', getSectionDetails)
 router.post('/attach-section-file', attachFileToSection)
 router.post('/delete-subject-file', deleteSubjectFile)
 router.post('/delete-section-file', deleteSectionFile)
+router.get('/get-all-students', getAllStudents)
+router.get('/conversations', protectRoute, getTeacherConversations)
 
 export default router

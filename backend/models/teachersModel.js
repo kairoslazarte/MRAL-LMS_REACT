@@ -19,6 +19,10 @@ const teachersSchema = mongoose.Schema(
             type: String,
             required: true
         },
+        full_name: {
+            type: String,
+            required: false
+        },
         email: {
             type: String,
             required: true,

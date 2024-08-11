@@ -2,20 +2,28 @@ import ViewNewsAndUpdates from "../../components/reusable/ViewNewsAndUpdates"
 import StudentClassesLists from "../../components/student/dashboard/classes/StudentClassesLists"
 import ViewStudentNewslettersMemos from "../../components/student/dashboard/newslettersMemos/ViewStudentNewslettersMemos"
 import StudentHeader from "../../components/student/dashboard/partials/StudentHeader"
-import StudentMessages from "../../components/student/dashboard/partials/StudentMessages"
 import StudentSidebar from "../../components/student/dashboard/partials/StudentSidebar"
 import ViewUpdateStudentProfile from "../../components/student/dashboard/profile/ViewUpdateStudentProfile"
 import StudentLogin from "../../components/student/forms/StudentLogin"
 import { StudentLoginContext } from "../../contexts/student/StudentLoginContexts"
 import { StudentSidebarContexts } from "../../contexts/student/StudentSidebarContexts"
 import { useMemo, useState } from "react"
+import ArrowBackButton from "../../components/reusable/ArrowBackButton"
+import MessagesContainer from "../../components/common/messages/MessagesContainer"
+import StudentMessagesSidebar from "../../components/student/dashboard/partials/StudentMessagesSidebar"
+import useListenMessages from "../../hooks/messages/useListenMessages"
+import useStudentGetAllTeachers from "../../hooks/student/useStudentGetAllTeachers"
 
 const Student = () => {
+    const { teachers } = useStudentGetAllTeachers();
+    useListenMessages({users: teachers});
+
     const [student, setStudent] = useState(null)
     const userValue = useMemo(() => ({student, setStudent}), [student, setStudent])
     
     const [activeComponent, setActiveComponent] = useState("Home")
     const sidebarValue = useMemo(() => ({activeComponent, setActiveComponent}), [activeComponent, setActiveComponent])
+
     return (
         <>
             <StudentLoginContext.Provider value={userValue}>
@@ -36,25 +44,35 @@ const Student = () => {
                                 <div className="lg:pl-[18rem] xl:pl-[20rem] h-full w-full">
                                     <StudentHeader studentDetails={student} />
 
-                                    <div className="flex flex-row w-full bg-gray-50 h-full">
-                                        <div className="w-full 2xl:px-8 px-4 mt-10">
-                                            {activeComponent == "Home" && (
-                                                <ViewNewsAndUpdates />
-                                            )}
-                                            {activeComponent == `${student?.first_name} ${student?.last_name}` && (
-                                                <ViewUpdateStudentProfile studentDetails={student} />
-                                            )}
-                                            {activeComponent == `${student?.level} - ${student?.section}` && (
-                                                <StudentClassesLists studentDetails={student} />
-                                            )}
-                                            {activeComponent == 'General Newsletters / Memos' && (
-                                                <ViewStudentNewslettersMemos />
-                                            )}
-                                        </div>
+                                    <div className="flex flex-row w-full bg-gray-50">
+                                        <div className="w-full 2xl:px-8 px-4 mt-5">
+                                            {activeComponent === "Messages" ? (
+                                                <ArrowBackButton component={"student"} />
+                                            ) : <></>}
 
-                                        {/* <div className="w-[25%] bg-white border-l border-gray-200 h-full fixed right-0">
-                                            <StudentMessages studentDetails={student} />           
-                                        </div> */}
+                                            <div className="mt-5">
+                                                {activeComponent == "Home" && (
+                                                    <ViewNewsAndUpdates />
+                                                )}
+                                                {activeComponent == `${student?.first_name} ${student?.last_name}` && (
+                                                    <ViewUpdateStudentProfile studentDetails={student} />
+                                                )}
+                                                {activeComponent == `${student?.level} - ${student?.section}` && (
+                                                    <StudentClassesLists studentDetails={student} />
+                                                )}
+                                                {activeComponent == "Messages" && (
+                                                   <>
+                                                        <div className="lg:hidden flex flex-col h-[12rem] w-full overflow-y-scroll mb-5 border border-gray-200 py-3 rounded-md">
+                                                            <StudentMessagesSidebar />
+                                                        </div>
+                                                        <MessagesContainer />
+                                                   </> 
+                                                )}
+                                                {activeComponent == 'General Newsletters / Memos' && (
+                                                    <ViewStudentNewslettersMemos />
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

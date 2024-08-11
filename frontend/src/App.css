@@ -2,9 +2,9 @@ html * {
   font-family: 'Open Sans', sans-serif;
 }
 
-
 body {
   height: 100vh;
+  background-color: white;
 }
 
 #root {
