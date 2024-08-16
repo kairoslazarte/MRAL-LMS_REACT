@@ -6,6 +6,7 @@ import Section from '../models/sectionsModel.js';
 import Level from '../models/levelsModel.js';
 import Student from '../models/studentsModel.js';
 import Conversation from '../models/conversationModel.js';
+import User from '../models/userModel.js';
 
 const authTeacher = asyncHandler(async (req, res) => {
     const { email, password } = req.body
@@ -159,10 +160,12 @@ const getTeacherConversations = asyncHandler(async(req, res) => {
     const conversations = await Conversation.find({
         participants: { $in: teacherID }
     });
+
     const participants = conversations.map((conversation) => conversation.participants);
-    const students = await Student.find({
-        _id: { $in: participants.flat() }
-    }).select("-password");
+    const students = await User.find({
+        _id: { $in: participants.flat() },
+        accountType: "student"
+    }).sort({ updatedAt: -1 }).select("-password");
 
     res.status(200).json(students);
 })

@@ -17,7 +17,13 @@ const userSchema = new mongoose.Schema({
     },
     accountType: {
         type: String
-    }
+    },
+    messages: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Message"
+        }
+    ],
 }, {timestamps: true});
 
 userSchema.methods.matchPassword = async function (enteredPassword) {

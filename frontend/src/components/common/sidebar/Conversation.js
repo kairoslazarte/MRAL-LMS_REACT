@@ -1,11 +1,16 @@
 
 
-import React from "react";
+import React, { useContext } from "react";
 import { useSocketContext } from "../../../contexts/socket/SocketContext";
 import useConversation from "../../../zustand/useConversation";
+import { TeacherLoginContext } from "../../../contexts/teacher/TeacherLoginContexts";
+import { useUsersContext } from "../../../contexts/users/UsersContext";
 
-const Conversation = ({ conversation, lastIdx, setSearchResult }) => {
+const Conversation = ({ conversation, lastIdx, setSearchResults }) => {
     const { selectedConversation, setSelectedConversation } = useConversation();
+
+    const { users } = useUsersContext();
+    const { first_name, last_name, image } = users?.find(user => user?._id === conversation?._id);
 
     const isSelected = selectedConversation?._id === conversation._id;
     const { onlineUsers } = useSocketContext();
@@ -13,7 +18,7 @@ const Conversation = ({ conversation, lastIdx, setSearchResult }) => {
 
     const handleOnClickConversation = () => {
         setSelectedConversation(conversation);
-        setSearchResult(null);
+        setSearchResults(null);
     }
 
     return (
@@ -27,7 +32,7 @@ const Conversation = ({ conversation, lastIdx, setSearchResult }) => {
                 <div className={`avatar ${isOnline ? "online" : ""}`}>
                     <div className='w-14 rounded-full'>
                         <img 
-                            src={!conversation?.image ? "../static/images/default_user.png" : conversation?.image} 
+                            src={!image ? "../static/images/default_user.png" : image} 
                             alt='user avatar' 
                             className='rounded-full w-14 h-14 bg-white' 
                         />
@@ -36,7 +41,7 @@ const Conversation = ({ conversation, lastIdx, setSearchResult }) => {
 
                 <div className='flex flex-col flex-1'>
                     <div className='flex gap-3 justify-between'>
-                        <p className='font-bold text-black'>{conversation?.first_name} {conversation?.last_name}</p>
+                        <p className='font-bold text-black'>{first_name} {last_name}</p>
                         {/* <span className='text-xl'>{emoji}</span> */}
                     </div>
                 </div>

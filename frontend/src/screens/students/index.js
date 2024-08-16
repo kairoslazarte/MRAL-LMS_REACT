@@ -7,15 +7,18 @@ import ViewUpdateStudentProfile from "../../components/student/dashboard/profile
 import StudentLogin from "../../components/student/forms/StudentLogin"
 import { StudentLoginContext } from "../../contexts/student/StudentLoginContexts"
 import { StudentSidebarContexts } from "../../contexts/student/StudentSidebarContexts"
-import { useMemo, useState } from "react"
+import { useMemo, useState, useEffect } from "react"
 import ArrowBackButton from "../../components/reusable/ArrowBackButton"
 import MessagesContainer from "../../components/common/messages/MessagesContainer"
 import StudentMessagesSidebar from "../../components/student/dashboard/partials/StudentMessagesSidebar"
 import useListenMessages from "../../hooks/messages/useListenMessages"
 import useStudentGetAllTeachers from "../../hooks/student/useStudentGetAllTeachers"
+import { useUsersContext } from "../../contexts/users/UsersContext"
 
 const Student = () => {
     const { teachers } = useStudentGetAllTeachers();
+    const { setUsers } = useUsersContext();
+
     useListenMessages({users: teachers});
 
     const [student, setStudent] = useState(null)
@@ -23,6 +26,10 @@ const Student = () => {
     
     const [activeComponent, setActiveComponent] = useState("Home")
     const sidebarValue = useMemo(() => ({activeComponent, setActiveComponent}), [activeComponent, setActiveComponent])
+
+    useEffect(() => {
+        if (teachers) setUsers(teachers);
+    }, [teachers]);
 
     return (
         <>

@@ -9,6 +9,7 @@ import {
     getTeacherDetails,
     getAllTeachers,
     studentSendMessage,
+    searchTeachers,
     getStudentConversations
 } from '../controllers/studentsController.js'
 import protectRoute from '../middleware/protectRoute.js'
@@ -21,6 +22,7 @@ router.post('/get-student', getStudentDetails)
 router.post('/get-teacher', getTeacherDetails)
 router.get('/get-all-teachers', getAllTeachers)
 router.post('/send-message', studentSendMessage)
+router.post('/search-teachers', searchTeachers)
 router.get('/conversations', protectRoute, getStudentConversations)
 
 export default router

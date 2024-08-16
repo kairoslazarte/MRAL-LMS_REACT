@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
 import useGetStudentConversations from '../../../../hooks/student/useGetStudentConversations';
 import toast from 'react-hot-toast';
-import useStudentGetAllTeachers from '../../../../hooks/student/useStudentGetAllTeachers';
 import Conversations from '../../../common/sidebar/Conversations';
+import axios from 'axios';
 
 const StudentMessagesSidebar = () => {
     const [searchInput, setSearchInput] = useState("");
-    const [searchResult, setSearchResult] = useState();
-    const { teachers } = useStudentGetAllTeachers();
+    const [searchResults, setSearchResults] = useState();
     const { loading, conversations } =  useGetStudentConversations();
 
-    const handleSearchConversations = (e) => {
+    const handleSearchConversations = async (e) => {
         e.preventDefault();
         if(!searchInput) return;
         if (searchInput.length < 3) {
             return toast.error("Search term must be atleast 3 characters long");
         }
-
-        const teacher = teachers.find((c) => c?.full_name.toLowerCase().includes(searchInput.toLocaleLowerCase()));
-
-        if(teacher) {
-            setSearchResult(teacher);
-            setSearchInput("");
-        } else toast.error("No such user found!");
+        try {
+            const { data: teacher } = await axios.post("/api/students/search-teachers", {
+                searchInput: searchInput
+            })
+            if (teacher.length > 0) {
+                setSearchResults(teacher);
+                setSearchInput("");
+            } else toast.error("No teacher found. Please refine your search.");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -43,7 +46,7 @@ const StudentMessagesSidebar = () => {
                 </button>
             </form>
 
-            <Conversations searchResult={searchResult} setSearchResult={setSearchResult} conversations={conversations} loading={loading} />
+            <Conversations setSearchResults={setSearchResults} conversations={!searchResults ? conversations : searchResults} loading={loading} />
         </div>
     )
 }

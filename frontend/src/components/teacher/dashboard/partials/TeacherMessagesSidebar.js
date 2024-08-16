@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import useTeacherGetAllStudents from '../../../../hooks/teacher/useTeacherGetAllStudents';
 import useGetTeacherConversations from '../../../../hooks/teacher/useGetTeacherConversations';
 import Conversations from '../../../common/sidebar/Conversations';
+import axios from 'axios';
 
 const TeacherMessagesSidebar = () => {
     const [searchInput, setSearchInput] = useState("");
-    const [searchStudentResult, setSearchStudentResult] = useState();
-    const { students } = useTeacherGetAllStudents();
+    const [searchStudentResults, setSearchStudentResults] = useState();
     const { loading, conversations } =  useGetTeacherConversations();
 
-    const handleSearchConversations = (e) => {
+    const handleSearchConversations = async (e) => {
         e.preventDefault();
         if(!searchInput) return;
         if (searchInput.length < 3) {
             return toast.error("Search term must be atleast 3 characters long");
         }
-
-        const student = students.find((c) => c?.full_name.toLowerCase().includes(searchInput.toLocaleLowerCase()));
-
-        if(student) {
-            setSearchStudentResult(student);
-            setSearchInput("");
-        } else toast.error("No such user found!");
+        try {
+            const { data: student } = await axios.post("/api/admins/search-students", {
+                searchInput: searchInput
+            })
+            if (student.length > 0) {
+                setSearchStudentResults(student);
+                setSearchInput("");
+            } else toast.error("No student found. Please refine your search.");
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -43,7 +46,7 @@ const TeacherMessagesSidebar = () => {
                 </button>
             </form>
 
-            <Conversations searchResult={searchStudentResult} setSearchResult={setSearchStudentResult} conversations={conversations} loading={loading} />
+            <Conversations setSearchResults={setSearchStudentResults} conversations={!searchStudentResults ? conversations : searchStudentResults} loading={loading} />
         </div>
     )
 }

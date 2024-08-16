@@ -10,6 +10,7 @@ import Teacher from './screens/teachers';
 import { AuthContextProvider } from './contexts/auth/AuthContext';
 import { Toaster } from "react-hot-toast";
 import { SocketContextProvider } from './contexts/socket/SocketContext';
+import { UsersContextProvider } from './contexts/users/UsersContext';
 
 const router = createBrowserRouter([
   {
@@ -38,10 +39,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <SocketContextProvider>
-        <RouterProvider router={router} />
-        <Toaster />
-      </SocketContextProvider>
+      <UsersContextProvider>
+        <SocketContextProvider>
+          <RouterProvider router={router} />
+          <Toaster />
+        </SocketContextProvider>
+      </UsersContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

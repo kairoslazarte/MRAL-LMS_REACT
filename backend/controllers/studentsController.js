@@ -5,6 +5,7 @@ import Section from '../models/sectionsModel.js';
 import Subject from '../models/subjectsModel.js';
 import Teacher from '../models/teachersModel.js';
 import Conversation from '../models/conversationModel.js';
+import User from '../models/userModel.js';
 
 const authStudent = asyncHandler(async (req, res) => {
     const { email, password } = req.body
@@ -129,6 +130,22 @@ const studentSendMessage = asyncHandler(async (req, res) => {
     }
 })
 
+const searchTeachers = asyncHandler(async (req, res) => {
+    const { searchInput } = req.body;
+
+    const keyword = searchInput 
+    ? {
+        full_name:  {
+            $regex: searchInput,
+            $options: 'i',
+        },
+    } : {}
+    
+    const teachers = await Teacher.find({ ...keyword })
+    res.json(teachers)
+})
+
+
 const getStudentConversations = asyncHandler(async(req, res) => {
     const studentID = req.user._id;
 
@@ -136,9 +153,10 @@ const getStudentConversations = asyncHandler(async(req, res) => {
         participants: { $in: studentID }
     });
     const participants = conversations.map((conversation) => conversation.participants);
-    const teachers = await Teacher.find({
-        _id: { $in: participants.flat() }
-    }).select("-password");
+    const teachers = await User.find({
+        _id: { $in: participants.flat() },
+        accountType: "teacher"
+    }).sort({ updatedAt: -1 }).select("-password");
 
     res.status(200).json(teachers);
 })
@@ -152,5 +170,6 @@ export {
     getTeacherDetails,
     getAllTeachers,
     studentSendMessage,
+    searchTeachers,
     getStudentConversations
 }
