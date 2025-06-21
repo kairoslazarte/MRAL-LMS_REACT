@@ -13,7 +13,7 @@ import Subject from './models/subjectsModel.js'
 import Section from './models/sectionsModel.js'
 import Category from './models/categoriesModel.js'
 import User from './models/userModel.js'
-import users from './data/users.js'
+// import users from './data/users.js'
 
 dotenv.config()
 
@@ -21,13 +21,13 @@ connectDB()
 
 const importData = async () => {
   try {
-    // await Admin.deleteMany()
+    await Admin.deleteMany()
 
-    // await Admin.insertMany(admins)
+    await Admin.insertMany(admins)
 
-    await User.deleteMany()
+    // await User.deleteMany()
 
-    await User.insertMany(users)
+    // await User.insertMany(users)
 
     console.log('Data Imported!'.green.inverse)
     process.exit()

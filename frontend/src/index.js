@@ -11,6 +11,7 @@ import { AuthContextProvider } from './contexts/auth/AuthContext';
 import { Toaster } from "react-hot-toast";
 import { SocketContextProvider } from './contexts/socket/SocketContext';
 import { UsersContextProvider } from './contexts/users/UsersContext';
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,7 @@ root.render(
         <SocketContextProvider>
           <RouterProvider router={router} />
           <Toaster />
+          <ToastContainer />
         </SocketContextProvider>
       </UsersContextProvider>
     </AuthContextProvider>

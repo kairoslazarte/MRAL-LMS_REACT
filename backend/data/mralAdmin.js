@@ -6,7 +6,7 @@ const mralAdmins = [
         middle_name: 'Admin',
         last_name: 'MRAL',
         email: 'mral-system_admin@mral.com',
-        password: bcrypt.hashSync('@mralAdmin#2023!Jeremiah29:11', 10),
+        password: bcrypt.hashSync('@mralAdmin#2025!Jeremiah29:11', 10),
         phone: '09063475153',
     },
 ]
